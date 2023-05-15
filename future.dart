@@ -1,15 +1,22 @@
 void main(List<String> args) {
-  Future<int> myFutureFunc() async{
-    print("I have a function in the future");
-    await Future.delayed(Duration(seconds: 5));
-    throw Exception();
-    return 12;
+  Future<int> myFutureErrorFunc(int a, int b) async {
+    try {
+      if (a > b) {
+        throw Exception();
+      }
+      
+      print("I hava a functional function");
+      await Future.delayed(Duration(seconds: 5));
+      return 42;
+    } catch (e) {
+      print("A error ocurred");
+      return 42;
+    } finally {
+      print("The future is end");
+    }
   }
 
-  myFutureFunc()
-    .then((value) => print("Ny functions valeu is: $value"))
-    .onError((error, stackTrace) => print("An Error occurred"))
-    .whenComplete(() => print("The future ends"));
+  myFutureErrorFunc(2, 1).then((value) => print("the value is $value"));
 
   print("Done with main");
 }
