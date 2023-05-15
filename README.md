@@ -1,2 +1,1 @@
-# AsyncDart
-Aprendendo assincronia em Dart
+A simple command-line application.
