@@ -9,7 +9,10 @@ void main(List<String> args) async{
     }
     print("The stream is finished");
   }
-  StreamSubscription mySubscriber = myStream(1).listen((event) { 
+
+  Stream dfStream = myStream(1);
+
+  StreamSubscription mySubscriber = dfStream.listen((event) { 
     if(event.isEven) {
       print("This number is even!");
     }
@@ -18,6 +21,8 @@ void main(List<String> args) async{
   }, onDone: () {
     print("Subscription ends");
   },);
+
+  dfStream.map((event) => "Subscriber 2 watching: $event").listen(print);
 
   await Future.delayed(Duration(seconds: 3));
   mySubscriber.pause();
