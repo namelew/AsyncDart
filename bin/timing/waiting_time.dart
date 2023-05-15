@@ -1,9 +1,17 @@
 class BotClock {
-  Duration waitTime;
+  Duration? waitTime;
 
-  BotClock(this.waitTime);
+  BotClock({this.waitTime});
 
   Future clock () {
-    return Future.delayed(waitTime);
+    return waitTime != null ? Future.delayed(waitTime!) : Future.delayed(Duration(seconds: 0));
+  }
+
+  Stream<int> botStream(int interval, [int? maxCount]) async*{
+    for(int i = 1; i != maxCount; i++) {
+      waitTime = Duration(seconds: interval);
+      await clock();
+      yield i;
+    }
   }
 }
