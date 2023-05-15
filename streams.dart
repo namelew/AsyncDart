@@ -1,6 +1,6 @@
 import 'dart:async';
 
-void main(List<String> args) {
+void main(List<String> args) async{
   Stream<int> myStream(int interval, [int? maxCount]) async*{
     for(int i = 1; i != maxCount; i++) {
       print("Couting: $i");
@@ -9,7 +9,7 @@ void main(List<String> args) {
     }
     print("The stream is finished");
   }
-  StreamSubscription mySubscriber = myStream(1, 10).listen((event) { 
+  StreamSubscription mySubscriber = myStream(1).listen((event) { 
     if(event.isEven) {
       print("This number is even!");
     }
@@ -18,5 +18,15 @@ void main(List<String> args) {
   }, onDone: () {
     print("Subscription ends");
   },);
+
+  await Future.delayed(Duration(seconds: 3));
+  mySubscriber.pause();
+  print("Strean as paused");
+  await Future.delayed(Duration(seconds: 3));
+  mySubscriber.resume();
+  print("Strean as resumed");
+  await Future.delayed(Duration(seconds: 3));
+  mySubscriber.cancel();
+  print("Strean as canceled");
   print("Main is finished");
 }
