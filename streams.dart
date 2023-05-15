@@ -10,7 +10,7 @@ void main(List<String> args) async{
     print("The stream is finished");
   }
 
-  Stream dfStream = myStream(1);
+  Stream dfStream = myStream(1).asBroadcastStream();
 
   StreamSubscription mySubscriber = dfStream.listen((event) { 
     if(event.isEven) {
