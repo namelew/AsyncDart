@@ -1,3 +1,5 @@
+import 'dart:async';
+
 void main(List<String> args) {
   Stream myStream(int interval, [int? maxCount]) async*{
     for(int i = 1; i != maxCount; i++) {
@@ -7,6 +9,6 @@ void main(List<String> args) {
     }
     print("The stream is finished");
   }
-  myStream(1, 10);
+  StreamSubscription mySubscriber = myStream(1, 10).listen((event) { });
   print("Main is finished");
 }
